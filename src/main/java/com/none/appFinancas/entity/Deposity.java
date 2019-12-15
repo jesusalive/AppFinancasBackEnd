@@ -8,8 +8,10 @@ import java.time.LocalDate;
 public class Deposity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(nullable = false)
@@ -19,12 +21,12 @@ public class Deposity {
     private Double value;
 
     @Column(nullable = false)
-    private String date;
+    private LocalDate date;
 
     public Deposity() {
     }
 
-    public Deposity(User user, String reason, Double value, String date) {
+    public Deposity(User user, String reason, Double value, LocalDate date) {
         this.user = user;
         this.reason = reason;
         this.value = value;
@@ -43,7 +45,11 @@ public class Deposity {
         return value;
     }
 
-    public String getDate() {
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
