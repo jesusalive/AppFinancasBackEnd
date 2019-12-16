@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -16,12 +17,17 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Object createUser(String nome, String username, String password){
+    public User createUser(String nome, String username, String password){
         try {
             return userRepository.save(new User(nome, username, password));
         }catch(RuntimeException e){
             throw new AtributeNullException(e.getMessage());
         }
+    }
+
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
     }
 
     public List<UserDTO> allUsers(){
