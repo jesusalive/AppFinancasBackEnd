@@ -12,6 +12,7 @@ public class Deposity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user", nullable = false)
     private User user;
 
     @Column(nullable = false)

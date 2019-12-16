@@ -52,4 +52,15 @@ public class Outs {
     public LocalDate getDate() {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return "Outs{" +
+                "id=" + id +
+                ", user=" + user +
+                ", reason='" + reason + '\'' +
+                ", value=" + value +
+                ", date=" + date +
+                '}';
+    }
 }

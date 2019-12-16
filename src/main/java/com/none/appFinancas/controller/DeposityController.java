@@ -27,4 +27,9 @@ public class DeposityController {
         return deposityService.createDeposity(deposity.getUserId(), deposity.getReason(),
                 deposity.getValue(), deposity.getDate());
     }
+
+    @DeleteMapping("/deposities/{deposityId}")
+    public void deleteDeposity(@PathVariable Long deposityId){
+        deposityService.deleteDeposity(deposityId);
+    }
 }
