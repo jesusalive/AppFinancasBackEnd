@@ -11,7 +11,7 @@ class DeposityTest {
     @Test
     public void deveCriarUmaEntrada(){
         User user = new User("Matheus", "dasds", "dsadasda");
-        Deposity deposity = new Deposity(user, "Lanche", 7.80, LocalDate.now());
+        Deposity deposity = new Deposity(user, "Lanche", 7.80, LocalDate.now(), true);
 
         System.out.println(deposity);
 

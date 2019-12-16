@@ -5,6 +5,15 @@ public class ExpenseFormDTO {
     private String reason;
     private Double value;
     private String date;
+    private Boolean fixed;
+
+    public Boolean getFixed() {
+        return fixed;
+    }
+
+    public void setFixed(Boolean fixed) {
+        this.fixed = fixed;
+    }
 
     public Long getUserId() {
         return userId;

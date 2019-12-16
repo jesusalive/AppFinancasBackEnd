@@ -2,6 +2,7 @@ package com.none.appFinancas.controller;
 
 import com.none.appFinancas.dto.ExpenseFormDTO;
 import com.none.appFinancas.dto.ExpenseDTO;
+import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.service.ExpenseService;
 import com.none.appFinancas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class ExpenseController {
     }
 
     @PostMapping("/outs")
-    public Object createOut(@RequestBody ExpenseFormDTO out){
-        return outsService.createOut(out.getUserId(), out.getReason(), out.getValue(), out.getDate());
+    public Expense createOut(@RequestBody ExpenseFormDTO out){
+        return outsService.createExpense(out.getUserId(), out.getReason(),
+                out.getValue(), out.getDate(), out.getFixed());
     }
 
     @DeleteMapping("/outs/{outId}")

@@ -21,12 +21,12 @@ public class DeposityService {
     @Autowired
     private UserService userService;
 
-    public Deposity createDeposity(Long userId, String reason, Double value, String date){
+    public Deposity createDeposity(Long userId, String reason, Double value, String date, Boolean fixed){
         try {
             User user = userService.findOne(userId);
 
             return deposityRepository.save(new Deposity(user, reason, value,
-                    date.trim().isEmpty() ? null : LocalDate.parse(date)));
+                    date.trim().isEmpty() ? null : LocalDate.parse(date), fixed));
         }catch(RuntimeException e){
             throw new AtributeNullException(e.getMessage());
         }

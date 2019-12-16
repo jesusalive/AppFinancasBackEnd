@@ -21,12 +21,12 @@ public class ExpenseService {
     @Autowired
     private UserService userService;
 
-    public Expense createExpense(Long userId, String reason, Double value, String date){
+    public Expense createExpense(Long userId, String reason, Double value, String date, Boolean fixed){
         try {
             User user = userService.findOne(userId);
 
             return expenseRepository.save(new Expense(user, reason, value,
-                    date.trim().isEmpty() ? null : LocalDate.parse(date)));
+                    date.trim().isEmpty() ? null : LocalDate.parse(date), fixed));
         }catch(RuntimeException e){
             throw new AtributeNullException(e.getMessage());
         }

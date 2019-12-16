@@ -20,7 +20,7 @@ class OutsServiceTest {
 
     @Test
     public void deveCriarOut(){
-        Object out = outsService.createOut(1L, "Nada", 12.0, "2019-12-15");
+        Object out = outsService.createExpense(1L, "Nada", 12.0, "2019-12-15", true);
 
         System.out.println(out);
 

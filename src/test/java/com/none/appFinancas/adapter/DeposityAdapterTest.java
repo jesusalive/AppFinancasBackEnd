@@ -17,8 +17,8 @@ class DeposityAdapterTest {
     @Test
     public void deveCriarUmaListaDeEntradasDTO(){
         User user = new User("Matheus", "jesusalive", "210900");
-        Deposity deposity1 = new Deposity(user, "Lanche", 20d, LocalDate.now());
-        Deposity deposity2 = new Deposity(user, "Nada", 20d, LocalDate.now());
+        Deposity deposity1 = new Deposity(user, "Lanche", 20d, LocalDate.now(),true);
+        Deposity deposity2 = new Deposity(user, "Nada", 20d, LocalDate.now(), true);
 
         List<Deposity> oldList = new ArrayList<>(
                 Arrays.asList(deposity1, deposity2)

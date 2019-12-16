@@ -23,9 +23,9 @@ public class DeposityController {
     }
 
     @PostMapping("/deposities")
-    public Object createDeposity(@RequestBody DeposityFormDTO deposity){
+    public Deposity createDeposity(@RequestBody DeposityFormDTO deposity){
         return deposityService.createDeposity(deposity.getUserId(), deposity.getReason(),
-                deposity.getValue(), deposity.getDate());
+                deposity.getValue(), deposity.getDate(), deposity.getFixed());
     }
 
     @DeleteMapping("/deposities/{deposityId}")

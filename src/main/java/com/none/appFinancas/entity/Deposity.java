@@ -24,10 +24,13 @@ public class Deposity {
     @Column(nullable = false)
     private LocalDate date;
 
+    @Column(nullable = false)
+    private Boolean fixed;
+
     public Deposity() {
     }
 
-    public Deposity(User user, String reason, Double value, LocalDate date) {
+    public Deposity(User user, String reason, Double value, LocalDate date, Boolean fixed) {
         if(reason.trim().isEmpty()){
             throw new RuntimeException("Motivo não pode ser nulo");
         }
@@ -40,6 +43,7 @@ public class Deposity {
         this.reason = reason;
         this.value = value;
         this.date = date;
+        this.fixed = fixed;
     }
 
     public User getUser() {
@@ -62,13 +66,17 @@ public class Deposity {
         return date;
     }
 
+    public Boolean getFixed(){ return fixed; }
+
     @Override
     public String toString() {
         return "Deposity{" +
-                "user=" + user +
+                "id=" + id +
+                ", user=" + user +
                 ", reason='" + reason + '\'' +
                 ", value=" + value +
                 ", date=" + date +
+                ", fixed=" + fixed +
                 '}';
     }
 }
