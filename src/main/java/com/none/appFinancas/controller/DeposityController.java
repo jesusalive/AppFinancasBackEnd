@@ -23,7 +23,7 @@ public class DeposityController {
     }
 
     @PostMapping("/deposities")
-    public Deposity createDeposity(@RequestBody DeposityFormDTO deposity){
+    public Object createDeposity(@RequestBody DeposityFormDTO deposity){
         return deposityService.createDeposity(deposity.getUserId(), deposity.getReason(),
                 deposity.getValue(), deposity.getDate());
     }

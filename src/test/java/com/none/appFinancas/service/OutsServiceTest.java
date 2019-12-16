@@ -22,7 +22,7 @@ class OutsServiceTest {
 
     @Test
     public void deveCriarOut(){
-        Outs out = outsService.createOut(1L, "Nada", 12.0, "2019-12-15");
+        Object out = outsService.createOut(1L, "Nada", 12.0, "2019-12-15");
 
         System.out.println(out);
 

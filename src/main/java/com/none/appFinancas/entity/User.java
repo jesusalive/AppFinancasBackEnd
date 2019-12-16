@@ -30,6 +30,18 @@ public class User {
     }
 
     public User(String name, String username, String password) {
+        if(name.trim().isEmpty()){
+            throw new RuntimeException("Nome não pode ser nulo");
+        }
+
+        if(username.trim().isEmpty()){
+            throw new RuntimeException("Username não pode ser nulo");
+        }
+
+        if(password.trim().isEmpty()){
+            throw new RuntimeException("Senha não pode ser nulo(a)");
+        }
+
         this.name = name;
         this.username = username;
         this.password = password;

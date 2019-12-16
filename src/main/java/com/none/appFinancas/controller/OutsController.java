@@ -26,7 +26,7 @@ public class OutsController {
     }
 
     @PostMapping("/outs")
-    public Outs createOut(@RequestBody OutFormDTO out){
+    public Object createOut(@RequestBody OutFormDTO out){
         return outsService.createOut(out.getUserId(), out.getReason(), out.getValue(), out.getDate());
     }
 

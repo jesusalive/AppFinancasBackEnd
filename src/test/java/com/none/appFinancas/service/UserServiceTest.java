@@ -24,7 +24,7 @@ public class UserServiceTest {
 
     @Test
     public void deveCriarUmUser(){
-       User user = userService.createUser("Matheus", "jesusalive", "210900");
+       Object user = userService.createUser("Matheus", "jesusalive", "210900");
 
        assertNotNull(user);
     }

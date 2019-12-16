@@ -28,6 +28,14 @@ public class Deposity {
     }
 
     public Deposity(User user, String reason, Double value, LocalDate date) {
+        if(reason.trim().isEmpty()){
+            throw new RuntimeException("Motivo não pode ser nulo");
+        }
+
+        if(value <= 0.0){
+            throw new RuntimeException("Valor não pode ser nulo(a), igual, ou menor que zero!");
+        }
+
         this.user = user;
         this.reason = reason;
         this.value = value;
