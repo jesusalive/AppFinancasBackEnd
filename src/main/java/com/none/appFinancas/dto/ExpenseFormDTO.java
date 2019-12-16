@@ -1,6 +1,6 @@
 package com.none.appFinancas.dto;
 
-public class OutFormDTO {
+public class ExpenseFormDTO {
     private Long userId;
     private String reason;
     private Double value;

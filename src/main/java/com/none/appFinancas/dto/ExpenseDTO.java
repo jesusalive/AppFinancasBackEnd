@@ -2,12 +2,12 @@ package com.none.appFinancas.dto;
 
 import java.time.LocalDate;
 
-public class OutsDTO {
+public class ExpenseDTO {
     private String reason;
     private Double value;
     private LocalDate date;
 
-    public OutsDTO(String reason, Double value, String date) {
+    public ExpenseDTO(String reason, Double value, String date) {
         this.reason = reason;
         this.value = value;
         this.date = LocalDate.parse(date);

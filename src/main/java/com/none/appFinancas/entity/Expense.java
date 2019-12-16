@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "outs")
-public class Outs {
+public class Expense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ public class Outs {
     @Column(nullable = false)
     private LocalDate date;
 
-    public Outs() {
+    public Expense() {
     }
 
-    public Outs(User user, String reason, Double value, LocalDate date) {
+    public Expense(User user, String reason, Double value, LocalDate date) {
         if(reason.trim().isEmpty()){
             throw new RuntimeException("Motivo não pode ser nulo");
         }

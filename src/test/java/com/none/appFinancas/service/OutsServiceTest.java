@@ -1,7 +1,5 @@
 package com.none.appFinancas.service;
 
-import com.none.appFinancas.entity.Outs;
-import com.none.appFinancas.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ class OutsServiceTest {
     private UserService userService;
 
     @Autowired
-    private OutsService outsService;
+    private ExpenseService outsService;
 
     @Test
     public void deveCriarOut(){

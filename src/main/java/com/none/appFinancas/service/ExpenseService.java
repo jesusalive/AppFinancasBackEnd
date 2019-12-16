@@ -1,11 +1,11 @@
 package com.none.appFinancas.service;
 
-import com.none.appFinancas.adapter.OutsAdapter;
-import com.none.appFinancas.dto.OutsDTO;
-import com.none.appFinancas.entity.Outs;
+import com.none.appFinancas.adapter.ExpenseAdapter;
+import com.none.appFinancas.dto.ExpenseDTO;
+import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
-import com.none.appFinancas.repository.OutsRepository;
+import com.none.appFinancas.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,33 +13,33 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class OutsService {
+public class ExpenseService {
 
     @Autowired
-    private OutsRepository outsRepository;
+    private ExpenseRepository expenseRepository;
 
     @Autowired
     private UserService userService;
 
-    public Outs createOut(Long userId, String reason, Double value, String date){
+    public Expense createExpense(Long userId, String reason, Double value, String date){
         try {
             User user = userService.findOne(userId);
 
-            return outsRepository.save(new Outs(user, reason, value,
+            return expenseRepository.save(new Expense(user, reason, value,
                     date.trim().isEmpty() ? null : LocalDate.parse(date)));
         }catch(RuntimeException e){
             throw new AtributeNullException(e.getMessage());
         }
     }
 
-    public List<OutsDTO> allUserOuts(Long userId){
+    public List<ExpenseDTO> allUserOuts(Long userId){
         User user = userService.findOne(userId);
-        List<Outs> oldList = outsRepository.findByUser(user);
+        List<Expense> oldList = expenseRepository.findByUser(user);
 
-        return OutsAdapter.outListAdapter(oldList);
+        return ExpenseAdapter.outListAdapter(oldList);
     }
 
     public void deleteOut(Long outId) {
-        outsRepository.deleteById(outId);
+        expenseRepository.deleteById(outId);
     }
 }
