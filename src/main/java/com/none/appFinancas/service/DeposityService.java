@@ -4,7 +4,7 @@ import com.none.appFinancas.adapter.DeposityAdapter;
 import com.none.appFinancas.dto.DeposityDTO;
 import com.none.appFinancas.entity.Deposity;
 import com.none.appFinancas.entity.User;
-import com.none.appFinancas.erros.ErrorModel;
+import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.repository.DeposityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class DeposityService {
     @Autowired
     private UserService userService;
 
-    public Object createDeposity(Long userId, String reason, Double value, String date){
-        try{
+    public Deposity createDeposity(Long userId, String reason, Double value, String date){
+        try {
             User user = userService.findOne(userId);
 
             return deposityRepository.save(new Deposity(user, reason, value,
                     date.trim().isEmpty() ? null : LocalDate.parse(date)));
         }catch(RuntimeException e){
-            return new ErrorModel(e.getMessage());
+            throw new AtributeNullException(e.getMessage());
         }
     }
 
@@ -43,4 +43,5 @@ public class DeposityService {
     public void deleteDeposity(Long id) {
         deposityRepository.deleteById(id);
     }
+
 }
