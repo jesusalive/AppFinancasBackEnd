@@ -20,9 +20,11 @@ public class UserService {
 
     public User createUser(String nome, String username, String password){
         try {
+            this.usernameVerify(username);
+            this.passVerify(password);
             return userRepository.save(new User(nome, username, password));
         }catch(RuntimeException e){
-            throw new AtributeNullException(e.getMessage());
+            throw new AuthError(e.getMessage());
         }
     }
 
@@ -38,6 +40,20 @@ public class UserService {
 
     public User findOne(Long id){
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+
+    public void usernameVerify(String username){
+        userRepository.findByUsername(username).ifPresent( item -> {
+            if(item.getName() != null){
+                throw new AuthError("Usuario em uso!");
+            }
+        });
+    }
+
+    public void passVerify(String pass){
+        if (pass.length() < 6){
+            throw new AuthError("A senha deve conter no mínimo 6 caracteres");
+        }
     }
 
 }
