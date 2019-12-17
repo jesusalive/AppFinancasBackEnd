@@ -4,8 +4,13 @@ import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-    public List<Expense> findByUser(User user);
+    List<Expense> findByUser(User user);
+    Optional<Expense> findByIdAndUser(Long expenseId, User user);
+    List<Expense> findByUserAndFixed(User user, Boolean fixed);
+    List<Expense> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate);
 }

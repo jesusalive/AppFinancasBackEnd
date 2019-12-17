@@ -1,5 +1,6 @@
 package com.none.appFinancas.controller;
 
+import com.none.appFinancas.dto.DateFormDTO;
 import com.none.appFinancas.dto.DeposityDTO;
 import com.none.appFinancas.dto.DeposityFormDTO;
 import com.none.appFinancas.entity.Deposity;
@@ -20,6 +21,17 @@ public class DeposityController {
     @GetMapping("/deposities/{userId}")
     public List<DeposityDTO> getAllDeposities(@PathVariable Long userId){
         return deposityService.findAllDeposities(userId);
+    }
+
+    @GetMapping("/deposities/{userId}/fixed")
+    public List<DeposityDTO> getAllFixedDeposities(@PathVariable Long userId){
+        return deposityService.findAllFixedDeposities(userId);
+    }
+
+    @GetMapping("/deposities/month")
+    public List<DeposityDTO> getAllDepositiesOfMonthAndYear(@RequestBody DateFormDTO monthAndYear){
+        String[] date = monthAndYear.getMonthAndYear().split("-");
+        return deposityService.findAllDepositiesOfMonthAndYear(monthAndYear.getUserId(), date[1], date[0]);
     }
 
     @PostMapping("/deposities")

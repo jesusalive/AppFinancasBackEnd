@@ -1,6 +1,7 @@
 package com.none.appFinancas.service;
 
 import com.none.appFinancas.entity.User;
+import com.none.appFinancas.errors.AuthError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class LoginService {
         User user = userService.findUserByUsername(username);
 
         if(!user.getPassword().equals(password)){
-            throw new RuntimeException("Senha não corresponde com usuario!");
+            throw new AuthError("Senha não corresponde com usuario!");
         }
 
         return user;

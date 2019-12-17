@@ -4,6 +4,7 @@ import com.none.appFinancas.adapter.UserAdapter;
 import com.none.appFinancas.dto.UserDTO;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
+import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class UserService {
 
     public User findUserByUsername(String username){
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new AuthError("Usuario não encontrado"));
     }
 
     public List<UserDTO> allUsers(){

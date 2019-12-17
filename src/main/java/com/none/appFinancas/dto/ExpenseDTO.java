@@ -1,16 +1,19 @@
 package com.none.appFinancas.dto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ExpenseDTO {
     private String reason;
     private Double value;
     private LocalDate date;
+    private String status;
 
-    public ExpenseDTO(String reason, Double value, String date) {
+    public ExpenseDTO(String reason, Double value, String date, String status) {
         this.reason = reason;
         this.value = value;
         this.date = LocalDate.parse(date);
+        this.status = status;
     }
 
     public String getReason() {
@@ -37,12 +40,21 @@ public class ExpenseDTO {
         this.date = date;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "OutsDTO{" +
+        return "ExpenseDTO{" +
                 "reason='" + reason + '\'' +
                 ", value=" + value +
                 ", date=" + date +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

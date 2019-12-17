@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "outs")
+@Table(name = "expenses")
 public class Expense {
 
     @Id
@@ -12,6 +12,7 @@ public class Expense {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(nullable = false, name = "user")
     private User user;
 
     @Column(nullable = false)
@@ -25,6 +26,9 @@ public class Expense {
 
     @Column(nullable = false)
     private Boolean fixed;
+
+    @Column(nullable = false)
+    private String status;
 
     public Expense() {
     }
@@ -43,6 +47,7 @@ public class Expense {
         this.value = value;
         this.date = date;
         this.fixed = fixed;
+        this.status = "pending";
     }
 
     public Long getId() {
@@ -67,6 +72,18 @@ public class Expense {
 
     public Boolean getFixed(){ return fixed; }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setFixed(Boolean fixed) {
+        this.fixed = fixed;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Expense{" +
@@ -76,6 +93,7 @@ public class Expense {
                 ", value=" + value +
                 ", date=" + date +
                 ", fixed=" + fixed +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

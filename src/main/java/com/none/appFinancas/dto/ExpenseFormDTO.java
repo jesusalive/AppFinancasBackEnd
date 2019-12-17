@@ -6,6 +6,7 @@ public class ExpenseFormDTO {
     private Double value;
     private String date;
     private Boolean fixed;
+    private String status;
 
     public Boolean getFixed() {
         return fixed;
@@ -13,6 +14,14 @@ public class ExpenseFormDTO {
 
     public void setFixed(Boolean fixed) {
         this.fixed = fixed;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getUserId() {

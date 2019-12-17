@@ -43,4 +43,19 @@ public class DeposityService {
         deposityRepository.deleteById(id);
     }
 
+    public List<DeposityDTO> findAllFixedDeposities(Long userId) {
+        User user = userService.findOne(userId);
+        return DeposityAdapter.deposityListAdapter(
+                deposityRepository.findByUserAndFixed(user, true));
+    }
+
+    public List<DeposityDTO> findAllDepositiesOfMonthAndYear(Long userId, String month, String year){
+        User user = userService.findOne(userId);
+        LocalDate startOfMonth = LocalDate.parse(year + "-" + month + "-" + "01");
+        LocalDate endOfMonth = LocalDate.parse(year + "-" +
+                month + '-' + startOfMonth.lengthOfMonth());
+
+        return DeposityAdapter.deposityListAdapter(
+                deposityRepository.findByUserAndDateBetween(user, startOfMonth, endOfMonth));
+    }
 }
