@@ -1,8 +1,6 @@
 package com.none.appFinancas.service;
 
-import com.none.appFinancas.adapter.DeposityAdapter;
 import com.none.appFinancas.adapter.ExpenseAdapter;
-import com.none.appFinancas.dto.DeposityDTO;
 import com.none.appFinancas.dto.ExpenseDTO;
 import com.none.appFinancas.dto.ExpenseFormDTO;
 import com.none.appFinancas.entity.Expense;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExpenseService {

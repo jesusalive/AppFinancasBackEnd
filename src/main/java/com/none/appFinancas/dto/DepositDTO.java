@@ -3,13 +3,13 @@ package com.none.appFinancas.dto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class DeposityDTO {
+public class DepositDTO {
 
     private String reason;
     private Double value;
     private LocalDate date;
 
-    public DeposityDTO(String reason, Double value, String date) {
+    public DepositDTO(String reason, Double value, String date) {
         this.reason = reason;
         this.value = value;
         this.date = LocalDate.parse(date);
@@ -41,7 +41,7 @@ public class DeposityDTO {
 
     @Override
     public String toString() {
-        return "DeposityDTO{" +
+        return "DepositDTO{" +
                 "reason='" + reason + '\'' +
                 ", value=" + value +
                 ", date=" + date +

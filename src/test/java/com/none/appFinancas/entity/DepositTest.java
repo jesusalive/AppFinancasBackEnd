@@ -6,15 +6,15 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeposityTest {
+class DepositTest {
 
     @Test
     public void deveCriarUmaEntrada(){
         User user = new User("Matheus", "dasds", "dsadasda");
-        Deposity deposity = new Deposity(user, "Lanche", 7.80, LocalDate.now(), true);
+        Deposit deposit = new Deposit(user, "Lanche", 7.80, LocalDate.now(), true);
 
-        System.out.println(deposity);
+        System.out.println(deposit);
 
-        assertNotNull(deposity);
+        assertNotNull(deposit);
     }
 }

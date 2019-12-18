@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "deposities")
-public class Deposity {
+public class Deposit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class Deposity {
     @Column(nullable = false)
     private Boolean fixed;
 
-    public Deposity() {
+    public Deposit() {
     }
 
-    public Deposity(User user, String reason, Double value, LocalDate date, Boolean fixed) {
+    public Deposit(User user, String reason, Double value, LocalDate date, Boolean fixed) {
         if(reason.trim().isEmpty()){
             throw new RuntimeException("Motivo não pode ser nulo");
         }
@@ -70,7 +70,7 @@ public class Deposity {
 
     @Override
     public String toString() {
-        return "Deposity{" +
+        return "Deposit{" +
                 "id=" + id +
                 ", user=" + user +
                 ", reason='" + reason + '\'' +

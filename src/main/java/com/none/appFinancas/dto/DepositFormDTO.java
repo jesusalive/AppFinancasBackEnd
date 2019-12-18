@@ -1,6 +1,6 @@
 package com.none.appFinancas.dto;
 
-public class DeposityFormDTO {
+public class DepositFormDTO {
     private Long userId;
     private String reason;
     private Double value;

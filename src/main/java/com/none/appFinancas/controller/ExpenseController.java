@@ -2,7 +2,6 @@ package com.none.appFinancas.controller;
 
 import com.none.appFinancas.adapter.ExpenseAdapter;
 import com.none.appFinancas.dto.DateFormDTO;
-import com.none.appFinancas.dto.DeposityDTO;
 import com.none.appFinancas.dto.ExpenseFormDTO;
 import com.none.appFinancas.dto.ExpenseDTO;
 import com.none.appFinancas.entity.Expense;

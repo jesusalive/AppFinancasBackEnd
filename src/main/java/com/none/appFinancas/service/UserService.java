@@ -45,7 +45,7 @@ public class UserService {
     public void usernameVerify(String username){
         userRepository.findByUsername(username).ifPresent( item -> {
             if(item.getName() != null){
-                throw new AuthError("Usuario em uso!");
+                throw new AuthError("Usuário em uso!");
             }
         });
     }
