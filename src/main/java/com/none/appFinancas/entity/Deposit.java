@@ -68,6 +68,10 @@ public class Deposit {
 
     public Boolean getFixed(){ return fixed; }
 
+    public void setFixed(Boolean fixed) {
+        this.fixed = fixed;
+    }
+
     @Override
     public String toString() {
         return "Deposit{" +

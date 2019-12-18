@@ -38,6 +38,11 @@ public class DepositController {
                 deposit.getValue(), deposit.getDate(), deposit.getFixed());
     }
 
+    @PutMapping("/deposits/{depositId}/fixed")
+    public Deposit alterFixedStatusOfDeposit(@PathVariable Long depositId, @RequestBody DepositFormDTO alterations){
+        return depositService.alterFixedDeposit(depositId, alterations);
+    }
+
     @DeleteMapping("/deposits/{depositId}")
     public void deleteDeposit(@PathVariable Long depositId){
         depositService.deleteDeposit(depositId);

@@ -2,7 +2,9 @@ package com.none.appFinancas.service;
 
 import com.none.appFinancas.adapter.DepositAdapter;
 import com.none.appFinancas.dto.DepositDTO;
+import com.none.appFinancas.dto.DepositFormDTO;
 import com.none.appFinancas.entity.Deposit;
+import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.repository.DepositRepository;
@@ -47,6 +49,16 @@ public class DepositService {
         User user = userService.findOne(userId);
         return DepositAdapter.deposityListAdapter(
                 depositRepository.findByUserAndFixed(user, true));
+    }
+
+    public Deposit alterFixedDeposit(Long depositId, DepositFormDTO alterations){
+        User user = userService.findOne(alterations.getUserId());
+        Deposit deposit = depositRepository.findByIdAndUser(depositId, user).orElseThrow(() ->
+                new RuntimeException("Entrada de valor não encontrada!"));
+
+        deposit.setFixed(alterations.getFixed());
+
+        return depositRepository.save(deposit);
     }
 
     public List<DepositDTO> findAllDepositsOfMonthAndYear(Long userId, String month, String year){

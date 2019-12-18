@@ -26,7 +26,7 @@ public class ExpenseController {
         return outsService.allUserOuts(userId);
     }
 
-    @GetMapping("/outs/{userId}/fixed")
+    @GetMapping("/outs/fixed/{userId}")
     public List<ExpenseDTO> getAllFixedOuts(@PathVariable Long userId){
         return outsService.findAllFixedExpenses(userId);
     }
@@ -43,12 +43,12 @@ public class ExpenseController {
                 out.getValue(), out.getDate(), out.getFixed());
     }
 
-    @PutMapping("/outs/status/{expenseId}")
+    @PutMapping("/outs/{expenseId}/status")
     public ExpenseDTO alterStatusOfExpense(@PathVariable Long expenseId, @RequestBody ExpenseFormDTO alterations){
         return ExpenseAdapter.expenseAdapter(outsService.alterExpenseStatus(expenseId, alterations));
     }
 
-    @PutMapping("/outs/fixed/{expenseId}")
+    @PutMapping("/outs/{expenseId}/fixed")
     public ExpenseDTO alterFixedExpense(@PathVariable Long expenseId, @RequestBody ExpenseFormDTO alterations){
         return ExpenseAdapter.expenseAdapter(outsService.alterFixedExpense(expenseId, alterations));
     }
