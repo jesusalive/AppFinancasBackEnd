@@ -15,7 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String[] PUBLIC_MATCHERS = { "/login"};
+    private final String[] PUBLIC_MATCHERS = { "/login", "/users"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

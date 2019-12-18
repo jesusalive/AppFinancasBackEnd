@@ -19,7 +19,7 @@ public class LoginController {
     public UserDTO signIn(@RequestBody LoginFormDTO form){
         try{
             return UserAdapter.userAdapter(loginService.authUser(form.getUsername(), form.getPassword()));
-        }catch (RuntimeException e){
+        }catch (RuntimeException | IllegalAccessException e){
             throw new AuthError(e.getMessage());
         }
     }

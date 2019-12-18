@@ -1,16 +1,20 @@
 package com.none.appFinancas.dto;
 
+import com.none.appFinancas.enums.ProfileUser;
+
 public class UserDTO {
 
     private Long id;
     private String nome;
     private String username;
+    private ProfileUser profile;
 
 
-    public UserDTO(Long id, String nome, String username) {
+    public UserDTO(Long id, String nome, String username, ProfileUser profile) {
         this.id = id;
         this.nome = nome;
         this.username = username;
+        this.profile = profile;
     }
 
     public Long getId() {
@@ -27,6 +31,14 @@ public class UserDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public ProfileUser getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ProfileUser profile) {
+        this.profile = profile;
     }
 
     public String getUsername() {

@@ -1,6 +1,7 @@
 package com.none.appFinancas.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.none.appFinancas.enums.ProfileUser;
 
 import javax.persistence.*;
 
@@ -21,7 +22,11 @@ public class User {
     @JsonIgnore
     private String password;
 
+    @Column
+    private Integer profile;
+
     public User() {
+        this.profile = 2;
     }
 
     @Override
@@ -48,6 +53,7 @@ public class User {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.profile = 2;
     }
 
     public Long getId() {
@@ -64,6 +70,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public ProfileUser getProfile() throws IllegalAccessException {
+        return ProfileUser.toEnum(this.profile);
+    }
+
+    public void setProfile(ProfileUser profile){
+        this.profile = profile.getCod();
     }
 }
 

@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public UserDTO findOneUser(@PathVariable Long userId){
+    public UserDTO findOneUser(@PathVariable Long userId) throws IllegalAccessException {
         User oldUser = userService.findOne(userId);
 
         return UserAdapter.userAdapter(oldUser);
