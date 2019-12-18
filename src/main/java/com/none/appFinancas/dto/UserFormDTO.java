@@ -1,5 +1,7 @@
 package com.none.appFinancas.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class UserFormDTO {
 
     private String nome;

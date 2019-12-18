@@ -1,5 +1,7 @@
 package com.none.appFinancas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,7 @@ public class User {
     private String username;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     public User() {

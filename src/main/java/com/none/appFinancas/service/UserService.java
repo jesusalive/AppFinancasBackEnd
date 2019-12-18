@@ -7,6 +7,7 @@ import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +19,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public User createUser(String nome, String username, String password){
         try {
             this.usernameVerify(username);
             this.passVerify(password);
-            return userRepository.save(new User(nome, username, password));
+            return userRepository.save(new User(nome, username, bCryptPasswordEncoder.encode(password)));
         }catch(RuntimeException e){
             throw new AuthError(e.getMessage());
         }
