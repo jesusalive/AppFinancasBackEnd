@@ -51,14 +51,14 @@ public class UserService {
     public void usernameVerify(String username){
         userRepository.findByUsername(username).ifPresent( item -> {
             if(item.getName() != null){
-                throw new AuthError("Usuário em uso!");
+                throw new AuthError("Usuario em uso!");
             }
         });
     }
 
     public void passVerify(String pass){
         if (pass.length() < 6){
-            throw new AuthError("A senha deve conter no mínimo 6 caracteres");
+            throw new AuthError("A senha deve conter no minimo 6 caracteres");
         }
     }
 
