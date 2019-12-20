@@ -2,19 +2,22 @@ package com.none.appFinancas.dto;
 
 import com.none.appFinancas.enums.ProfileUser;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class UserDTO {
 
     private Long id;
     private String nome;
     private String username;
-    private ProfileUser profile;
+    private Set<ProfileUser> profiles;
 
 
-    public UserDTO(Long id, String nome, String username, ProfileUser profile) {
+    public UserDTO(Long id, String nome, String username, Set<ProfileUser> profiles) {
         this.id = id;
         this.nome = nome;
         this.username = username;
-        this.profile = profile;
+        this.profiles = profiles;
     }
 
     public Long getId() {
@@ -33,12 +36,12 @@ public class UserDTO {
         this.nome = nome;
     }
 
-    public ProfileUser getProfile() {
-        return profile;
+    public Set<ProfileUser> getProfile() {
+        return profiles;
     }
 
-    public void setProfile(ProfileUser profile) {
-        this.profile = profile;
+    public void setProfile(Set<ProfileUser> profiles) {
+        this.profiles = profiles;
     }
 
     public String getUsername() {

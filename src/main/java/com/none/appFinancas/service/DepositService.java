@@ -9,6 +9,7 @@ import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.repository.DepositRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class DepositService {
     private DepositRepository depositRepository;
 
     @Autowired
+    @Lazy
     private UserService userService;
 
     public Deposit createDeposit(Long userId, String reason, Double value, String date, Boolean fixed){

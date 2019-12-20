@@ -1,6 +1,9 @@
 package com.none.appFinancas.dto;
 
-public class LoginFormDTO {
+import java.io.Serializable;
+
+public class LoginFormDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.none.appFinancas.enums.ProfileUser;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -22,11 +25,12 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @Column
-    private Integer profile;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "userProfiles")
+    private Set<Integer> profiles = new HashSet<>();
 
     public User() {
-        this.profile = 2;
+        addProfile(ProfileUser.USER);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class User {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.profile = 2;
+        addProfile(ProfileUser.USER);
     }
 
     public Long getId() {
@@ -72,12 +76,17 @@ public class User {
         return password;
     }
 
-    public ProfileUser getProfile() throws IllegalAccessException {
-        return ProfileUser.toEnum(this.profile);
+    public Set<ProfileUser> getProfile() throws IllegalAccessException {
+        Set<ProfileUser> collect = new HashSet<>();
+        for (Integer profile : profiles) {
+            ProfileUser profileUser = ProfileUser.toEnum(profile);
+            collect.add(profileUser);
+        }
+        return collect;
     }
 
-    public void setProfile(ProfileUser profile){
-        this.profile = profile.getCod();
+    public void addProfile(ProfileUser profile){
+        this.profiles.add(profile.getCod());
     }
 }
 

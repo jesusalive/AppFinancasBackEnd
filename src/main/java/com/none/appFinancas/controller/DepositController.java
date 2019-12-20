@@ -6,6 +6,7 @@ import com.none.appFinancas.dto.DepositFormDTO;
 import com.none.appFinancas.entity.Deposit;
 import com.none.appFinancas.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class DepositController {
 
     @Autowired
+    @Lazy
     private DepositService depositService;
 
     @GetMapping("/deposits/{userId}")

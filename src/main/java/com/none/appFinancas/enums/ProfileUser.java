@@ -33,6 +33,6 @@ public enum ProfileUser {
             }
         }
 
-        throw new IllegalAccessException("Id inválido: " + cod);
+        throw new IllegalAccessException("Numero de Profile inválido: " + cod);
     }
 }
