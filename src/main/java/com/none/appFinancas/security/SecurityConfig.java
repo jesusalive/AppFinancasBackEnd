@@ -1,5 +1,7 @@
 package com.none.appFinancas.security;
 
+import com.none.appFinancas.security.jwt.JWTAuthenticationFilter;
+import com.none.appFinancas.security.jwt.JWTUtil;
 import com.none.appFinancas.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsServiceImpl;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     private final String[] PUBLIC_MATCHERS = { "/login", "/users", "/deposits"};
 
     @Override
@@ -30,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
+        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
