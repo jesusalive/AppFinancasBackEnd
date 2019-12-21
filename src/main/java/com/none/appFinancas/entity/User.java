@@ -21,6 +21,9 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
     @Column(name = "password", nullable = false)
     @JsonIgnore
     private String password;
@@ -41,23 +44,24 @@ public class User {
                 '}';
     }
 
-    public User(String name, String username, String password) {
+    public User(String name, String username, String email, String password) {
         if(name.trim().isEmpty()){
             throw new RuntimeException("Nome não pode ser nulo");
         }
 
-        if(username.trim().isEmpty()){
-            throw new RuntimeException("Username não pode ser nulo");
-        }
-
-        if(password.trim().isEmpty()){
-            throw new RuntimeException("Senha não pode ser nulo(a)");
-        }
-
         this.name = name;
         this.username = username;
+        this.email = email;
         this.password = password;
         addProfile(ProfileUser.USER);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {

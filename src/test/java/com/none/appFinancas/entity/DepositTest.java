@@ -10,7 +10,7 @@ class DepositTest {
 
     @Test
     public void deveCriarUmaEntrada(){
-        User user = new User("Matheus", "dasds", "dsadasda");
+        User user = new User("Matheus", "dasds", "dsadasda", "dsaasd@dsadsa.com");
         Deposit deposit = new Deposit(user, "Lanche", 7.80, LocalDate.now(), true);
 
         System.out.println(deposit);

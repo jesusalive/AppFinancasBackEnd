@@ -33,6 +33,6 @@ public class UserController {
 
     @PostMapping("/users")
     public Object createUser(@RequestBody UserFormDTO user){
-        return userService.createUser(user.getNome(), user.getUsername(), user.getPassword());
+        return userService.createUser(user.getNome(), user.getUsername(), user.getEmail(),user.getPassword());
     }
 }

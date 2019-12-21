@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,14 +28,32 @@ public class UserService {
     @Lazy
     private BCryptPasswordEncoder passwordEncoder;
 
-    public User createUser(String nome, String username, String password){
+    public User createUser(String nome, String username, String email, String password){
         try {
             this.usernameVerify(username);
+            this.emailVerify(email);
             this.passVerify(password);
-            return userRepository.save(new User(nome, username, passwordEncoder.encode(password)));
+            return userRepository.save(new User(nome, username, email,
+                    passwordEncoder.encode(password)));
         }catch(RuntimeException e){
             throw new AuthError(e.getMessage());
         }
+    }
+
+    private void emailVerify(String email) {
+        userRepository.findByEmail(email).ifPresent( item -> {
+            if(item.getName() != null){
+                throw new AuthError("Email ja cadastrado, tente outro!");
+            }
+        });
+
+        try {
+            InternetAddress emailInTest = new InternetAddress(email);
+            emailInTest.validate();
+        } catch (AddressException e) {
+            throw new AuthError("Preencha o campo email corretamente");
+        }
+
     }
 
     public User findUserByUsername(String username){

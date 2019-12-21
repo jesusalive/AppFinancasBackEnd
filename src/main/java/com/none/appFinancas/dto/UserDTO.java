@@ -10,13 +10,15 @@ public class UserDTO {
     private Long id;
     private String nome;
     private String username;
+    private String email;
     private Set<ProfileUser> profiles;
 
 
-    public UserDTO(Long id, String nome, String username, Set<ProfileUser> profiles) {
+    public UserDTO(Long id, String nome, String username, String email, Set<ProfileUser> profiles) {
         this.id = id;
         this.nome = nome;
         this.username = username;
+        this.email = email;
         this.profiles = profiles;
     }
 
@@ -46,6 +48,14 @@ public class UserDTO {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setUsername(String username) {

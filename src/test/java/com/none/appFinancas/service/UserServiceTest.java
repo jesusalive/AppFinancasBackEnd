@@ -24,15 +24,16 @@ public class UserServiceTest {
 
     @Test
     public void deveCriarUmUser(){
-       Object user = userService.createUser("Matheus", "jesusalive", "210900");
+       Object user = userService.createUser("Matheus", "jesusalive",
+               "210900", "dsadsa@dsdas");
 
        assertNotNull(user);
     }
 
     @Test
     public void deveRetornarListaAdaptada(){
-        User user1 = new User("Matheus Gomes", "jesus", "2222");
-        User user2 = new User("Maria", "opapa", "1230");
+        User user1 = new User("Matheus Gomes", "jesus", "2222", "dsaasd@dassd.com");
+        User user2 = new User("Maria", "opapa", "1230", "dsaasd@dassd.com");
         List<User> users = new ArrayList<>(
                 Arrays.asList(user1, user2)
         );

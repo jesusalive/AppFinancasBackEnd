@@ -16,7 +16,7 @@ class DepositAdapterTest {
 
     @Test
     public void deveCriarUmaListaDeEntradasDTO(){
-        User user = new User("Matheus", "jesusalive", "210900");
+        User user = new User("Matheus", "jesusalive", "210900", "sdasad@adsas.com");
         Deposit deposit1 = new Deposit(user, "Lanche", 20d, LocalDate.now(),true);
         Deposit deposit2 = new Deposit(user, "Nada", 20d, LocalDate.now(), true);
 

@@ -16,7 +16,8 @@ public class UserAdapter {
         list.forEach(user -> {
             UserDTO userDTO = null;
             try {
-                userDTO = new UserDTO(user.getId(), user.getName(), user.getUsername(), user.getProfile());
+                userDTO = new UserDTO(user.getId(), user.getName(), user.getUsername(), user.getEmail(),
+                        user.getProfile());
             } catch (IllegalAccessException e) {
                 e.getMessage();
             }
@@ -28,6 +29,7 @@ public class UserAdapter {
     }
 
     public static UserDTO userAdapter(User oldUser) throws IllegalAccessException {
-       return new UserDTO(oldUser.getId(), oldUser.getName(), oldUser.getUsername(), oldUser.getProfile());
+       return new UserDTO(oldUser.getId(), oldUser.getName(), oldUser.getUsername(),
+               oldUser.getEmail(),oldUser.getProfile());
     }
 }
