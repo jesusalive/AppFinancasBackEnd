@@ -2,6 +2,7 @@ package com.none.appFinancas.service;
 
 import com.none.appFinancas.adapter.UserAdapter;
 import com.none.appFinancas.dto.UserDTO;
+import com.none.appFinancas.dto.UserFormDTO;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.errors.AuthError;
@@ -76,6 +77,29 @@ public class UserService {
                 throw new AuthError("Usuario em uso!");
             }
         });
+    }
+
+    public User refreshUser(Long userId, UserFormDTO alterations){
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new AuthError("Usuario não encontrado")
+        );
+
+        if(!alterations.getNome().trim().isEmpty()){
+            user.setName(alterations.getNome());
+        }
+
+        if(!alterations.getUsername().trim().isEmpty()){
+            user.setUsername(alterations.getUsername());
+        }
+
+        if(!alterations.getEmail().trim().isEmpty()){
+            user.setEmail(alterations.getEmail());
+        }
+        if(!alterations.getPassword().trim().isEmpty()){
+            user.setPassword(passwordEncoder.encode(alterations.getPassword()));
+        }
+
+        return userRepository.save(user);
     }
 
     public void passVerify(String pass){

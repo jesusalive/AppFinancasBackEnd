@@ -32,7 +32,13 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public Object createUser(@RequestBody UserFormDTO user){
+    public User createUser(@RequestBody UserFormDTO user){
         return userService.createUser(user.getNome(), user.getUsername(), user.getEmail(),user.getPassword());
     }
+
+    @PutMapping("/users/{userId}")
+    public User refreshUser(@PathVariable Long userId, @RequestBody UserFormDTO alterations){
+        return userService.refreshUser(userId, alterations);
+    }
+
 }
