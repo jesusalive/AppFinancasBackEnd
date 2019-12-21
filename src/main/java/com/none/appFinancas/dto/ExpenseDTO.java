@@ -4,16 +4,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ExpenseDTO {
+
+    private Long id;
     private String reason;
     private Double value;
     private LocalDate date;
     private String status;
 
-    public ExpenseDTO(String reason, Double value, String date, String status) {
+    public ExpenseDTO(Long id, String reason, Double value, String date, String status) {
+        this.id = id;
         this.reason = reason;
         this.value = value;
         this.date = LocalDate.parse(date);
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getReason() {

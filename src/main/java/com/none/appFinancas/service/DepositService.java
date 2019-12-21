@@ -8,6 +8,7 @@ import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.errors.AuthError;
+import com.none.appFinancas.errors.IncorrectId;
 import com.none.appFinancas.repository.DepositRepository;
 import com.none.appFinancas.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class DepositService {
 
     public void deleteDeposit(Long id) {
         Deposit deposit = depositRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Entrada não encontrada"));
+                new IncorrectId("Entrada não encontrada"));
         verifyUserDeposit(deposit);
         depositRepository.deleteById(id);
     }
@@ -70,7 +71,7 @@ public class DepositService {
     public Deposit alterFixedDeposit(Long depositId, DepositFormDTO alterations){
         User user = userService.findOne(alterations.getUserId());
         Deposit deposit = depositRepository.findByIdAndUser(depositId, user).orElseThrow(() ->
-                new RuntimeException("Entrada de valor não encontrada!"));
+                new IncorrectId("Entrada de valor não encontrada!"));
 
         deposit.setFixed(alterations.getFixed());
 

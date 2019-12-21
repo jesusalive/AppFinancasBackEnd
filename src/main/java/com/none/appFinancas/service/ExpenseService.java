@@ -3,11 +3,16 @@ package com.none.appFinancas.service;
 import com.none.appFinancas.adapter.ExpenseAdapter;
 import com.none.appFinancas.dto.ExpenseDTO;
 import com.none.appFinancas.dto.ExpenseFormDTO;
+import com.none.appFinancas.entity.Deposit;
 import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
+import com.none.appFinancas.errors.AuthError;
+import com.none.appFinancas.errors.IncorrectId;
 import com.none.appFinancas.repository.ExpenseRepository;
+import com.none.appFinancas.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -47,7 +52,7 @@ public class ExpenseService {
 
     public Expense alterExpenseStatus(Long expenseId, ExpenseFormDTO alterations){
         Expense expense = expenseRepository
-                .findById(expenseId).orElseThrow(() -> new RuntimeException("Despesa não encontrada"));
+                .findById(expenseId).orElseThrow(() -> new IncorrectId("Despesa não encontrada"));
 
         expense.setStatus(alterations.getStatus());
 
@@ -57,7 +62,7 @@ public class ExpenseService {
     public Expense alterFixedExpense(Long expenseId, ExpenseFormDTO alterations){
         User user = userService.findOne(alterations.getUserId());
         Expense expense = expenseRepository.findByIdAndUser(expenseId, user).orElseThrow(() ->
-               new RuntimeException("Despesa não encontrada!"));
+               new IncorrectId("Despesa não encontrada!"));
 
         expense.setFixed(alterations.getFixed());
 
@@ -75,6 +80,19 @@ public class ExpenseService {
     }
 
     public void deleteOut(Long outId) {
+        Expense expense = expenseRepository.findById(outId).orElseThrow(
+                () -> new IncorrectId("Despesa não encontrada")
+        );
+        verifyUserExpense(expense);
         expenseRepository.deleteById(outId);
+    }
+
+    private void verifyUserExpense(Expense expense) {
+        UserSS loggedUser = UserService.loggedUser();
+        if(loggedUser != null){
+            if(!expense.getUser().getId().equals(loggedUser.getId())){
+                throw new AuthError("Acesso negado!");
+            }
+        }
     }
 }
