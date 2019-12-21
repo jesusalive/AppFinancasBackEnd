@@ -6,8 +6,10 @@ import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.repository.UserRepository;
+import com.none.appFinancas.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +61,14 @@ public class UserService {
     public void passVerify(String pass){
         if (pass.length() < 6){
             throw new AuthError("A senha deve conter no minimo 6 caracteres");
+        }
+    }
+
+    public static UserSS loggedUser(){
+        try{
+            return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch (Exception e){
+            return null;
         }
     }
 

@@ -7,7 +7,9 @@ import com.none.appFinancas.entity.Deposit;
 import com.none.appFinancas.entity.Expense;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
+import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.repository.DepositRepository;
+import com.none.appFinancas.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -40,16 +42,28 @@ public class DepositService {
         User user = userService.findOne(userId);
         List<Deposit> oldList = depositRepository.findByUser(user);
 
-        return DepositAdapter.deposityListAdapter(oldList);
+        return DepositAdapter.depositListAdapter(oldList);
     }
 
     public void deleteDeposit(Long id) {
+        Deposit deposit = depositRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Entrada não encontrada"));
+        verifyUserDeposit(deposit);
         depositRepository.deleteById(id);
+    }
+
+    private void verifyUserDeposit(Deposit deposit) {
+        UserSS loggedUser = UserService.loggedUser();
+        if(loggedUser != null){
+            if(!deposit.getUser().getId().equals(loggedUser.getId())){
+                throw new AuthError("Acesso negado!");
+            }
+        }
     }
 
     public List<DepositDTO> findAllFixedDeposits(Long userId) {
         User user = userService.findOne(userId);
-        return DepositAdapter.deposityListAdapter(
+        return DepositAdapter.depositListAdapter(
                 depositRepository.findByUserAndFixed(user, true));
     }
 
@@ -69,7 +83,7 @@ public class DepositService {
         LocalDate endOfMonth = LocalDate.parse(year + "-" +
                 month + '-' + startOfMonth.lengthOfMonth());
 
-        return DepositAdapter.deposityListAdapter(
+        return DepositAdapter.depositListAdapter(
                 depositRepository.findByUserAndDateBetween(user, startOfMonth, endOfMonth));
     }
 }

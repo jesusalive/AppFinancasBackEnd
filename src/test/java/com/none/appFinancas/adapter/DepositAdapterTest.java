@@ -24,7 +24,7 @@ class DepositAdapterTest {
                 Arrays.asList(deposit1, deposit2)
         );
 
-        List<DepositDTO> adaptedList = DepositAdapter.deposityListAdapter(oldList);
+        List<DepositDTO> adaptedList = DepositAdapter.depositListAdapter(oldList);
 
         System.out.println(adaptedList);
 

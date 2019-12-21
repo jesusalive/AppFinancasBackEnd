@@ -6,6 +6,7 @@ import com.none.appFinancas.dto.UserFormDTO;
 import com.none.appFinancas.entity.User;
 import com.none.appFinancas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<UserDTO> allUsers(){
         return userService.allUsers();
     }
 
     @GetMapping("/users/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public UserDTO findOneUser(@PathVariable Long userId) throws IllegalAccessException {
         User oldUser = userService.findOne(userId);
 

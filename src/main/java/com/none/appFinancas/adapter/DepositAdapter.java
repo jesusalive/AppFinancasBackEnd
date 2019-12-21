@@ -9,13 +9,13 @@ import java.util.List;
 
 public class DepositAdapter {
 
-    public static List<DepositDTO> deposityListAdapter(List<Deposit> depositList){
+    public static List<DepositDTO> depositListAdapter(List<Deposit> depositList){
         List<DepositDTO> dtoList = new ArrayList<>();
 
         depositList.forEach(deposity -> {
             LocalDate date = deposity.getDate().plusDays(1);
 
-            DepositDTO depositDTO = new DepositDTO(deposity.getReason(),
+            DepositDTO depositDTO = new DepositDTO(deposity.getId(), deposity.getReason(),
                     deposity.getValue(), date.toString());
 
             dtoList.add(depositDTO);
