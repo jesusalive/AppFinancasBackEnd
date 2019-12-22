@@ -7,6 +7,13 @@ public class UserFormDTO {
     private String email;
     private String password;
 
+    public UserFormDTO(String nome, String username, String email, String password) {
+        this.nome = nome;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
