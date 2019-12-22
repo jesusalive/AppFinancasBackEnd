@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JWTUtil jwtUtil;
 
-    private final String[] PUBLIC_MATCHERS = { "/login"};
+    private final String[] PUBLIC_MATCHERS = { "/login", "/forgot"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
