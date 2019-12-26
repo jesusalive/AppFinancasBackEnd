@@ -3,7 +3,9 @@ package com.none.appFinancas.controller;
 import com.none.appFinancas.adapter.UserAdapter;
 import com.none.appFinancas.dto.UserDTO;
 import com.none.appFinancas.dto.UserFormDTO;
+import com.none.appFinancas.dto.UserVerifyDTO;
 import com.none.appFinancas.entity.User;
+import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.security.VerifyLoggedUser;
 import com.none.appFinancas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,23 @@ public class UserController {
         User oldUser = userService.findOne(userId);
 
         return UserAdapter.userAdapter(oldUser);
+    }
+
+    @PostMapping("/verify")
+    public UserVerifyDTO verifyEmail(@RequestBody UserFormDTO credentials){
+        try{
+            if(!credentials.getEmail().trim().isEmpty()){
+                return new UserVerifyDTO(userService.userEmailExists(credentials.getEmail()));
+            }
+
+            if(!credentials.getUsername().trim().isEmpty()){
+                return new UserVerifyDTO(userService.usernameExists(credentials.getUsername()));
+            }
+        }catch (RuntimeException e){
+            throw new AuthError(e.getMessage());
+        }
+
+        return null;
     }
 
     @PostMapping("/users")

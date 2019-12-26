@@ -41,6 +41,15 @@ public class UserService {
         }
     }
 
+    public Boolean userEmailExists(String email){
+        try{
+            this.emailVerify(email);
+            return false;
+        }catch (RuntimeException e){
+            throw new AuthError(e.getMessage());
+        }
+    }
+
     private void emailVerify(String email) {
         userRepository.findByEmail(email).ifPresent( item -> {
             if(item.getName() != null){
@@ -116,4 +125,12 @@ public class UserService {
         }
     }
 
+    public Boolean usernameExists(String username) {
+        try{
+            this.usernameVerify(username);
+            return false;
+        }catch (RuntimeException e){
+            throw new AuthError(e.getMessage());
+        }
+    }
 }
