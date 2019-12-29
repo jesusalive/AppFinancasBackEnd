@@ -9,6 +9,7 @@ import com.none.appFinancas.security.jwt.JWTUtil;
 import com.none.appFinancas.service.UserService;
 import com.none.appFinancas.service.mail.SmtpMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,9 @@ public class LoginController {
     @Autowired
     private JWTUtil jwtUtil;
 
+    @Value("${NEWPASS_KEY}")
+    private String key;
+
     @PostMapping("/login")
     public void signIn(@RequestBody LoginFormDTO form){
 
@@ -41,7 +45,7 @@ public class LoginController {
     public RequestNewPassDTO newPassToUser(@RequestBody RequestNewPassFormDTO form) throws IllegalAccessException {
         String formPass = form.getPass();
 
-        if (formPass.equals("23192128")) {
+        if (formPass.equals(key)) {
             User user = userService.findUserByUsername(form.getUsername());
             String newPass = SmtpMailSender.createNewCode();
 
