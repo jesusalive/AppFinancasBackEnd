@@ -1,9 +1,8 @@
 package com.none.appFinancas.controller;
 
-import com.none.appFinancas.dto.CodeForgotPassDTO;
-import com.none.appFinancas.dto.ForgotFormDTO;
-import com.none.appFinancas.dto.LoginFormDTO;
+import com.none.appFinancas.dto.*;
 import com.none.appFinancas.entity.User;
+import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.security.UserSS;
 import com.none.appFinancas.security.VerifyLoggedUser;
 import com.none.appFinancas.security.jwt.JWTUtil;
@@ -36,6 +35,23 @@ public class LoginController {
     public CodeForgotPassDTO forgotPass(@RequestBody ForgotFormDTO username){
         User user = userService.findUserByUsername(username.getUsername());
         return smtpMailSender.sendMailPassRecovery(user.getEmail(), user.getName(), user.getId());
+    }
+
+    @PostMapping("/new_pass")
+    public RequestNewPassDTO newPassToUser(@RequestBody RequestNewPassFormDTO form) throws IllegalAccessException {
+        String formPass = form.getPass();
+
+        if (formPass.equals("23192128")) {
+            User user = userService.findUserByUsername(form.getUsername());
+            String newPass = SmtpMailSender.createNewCode();
+
+            userService.refreshUser(user.getId(), new UserFormDTO("", "",
+                    "", newPass));
+
+            return new RequestNewPassDTO(user.getUsername(), newPass);
+        }
+
+        throw new AuthError("Acesso negado!");
     }
 
     @PostMapping("/refresh_token")

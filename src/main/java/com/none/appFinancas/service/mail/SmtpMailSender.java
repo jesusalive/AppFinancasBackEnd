@@ -49,7 +49,7 @@ public class SmtpMailSender extends AbstractEmailService {
         return sm;
     }
 
-    public String createNewCode() {
+    public static String createNewCode() {
         Random generateNumber = new Random();
         List<String> strings = new ArrayList<>(
                 Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n",
