@@ -12,7 +12,7 @@ public class Expense {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "user")
+    @JoinColumn(nullable = false, name = "owner")
     private User user;
 
     @Column(nullable = false)
