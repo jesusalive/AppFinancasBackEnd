@@ -12,7 +12,7 @@ public class Deposit {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "owner", nullable = false)
     private User user;
 
     @Column(nullable = false)
