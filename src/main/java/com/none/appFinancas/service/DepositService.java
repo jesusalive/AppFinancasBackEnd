@@ -9,6 +9,7 @@ import com.none.appFinancas.entity.User;
 import com.none.appFinancas.errors.AtributeNullException;
 import com.none.appFinancas.errors.AuthError;
 import com.none.appFinancas.errors.IncorrectId;
+import com.none.appFinancas.errors.IncorrectURL;
 import com.none.appFinancas.repository.DepositRepository;
 import com.none.appFinancas.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,9 @@ public class DepositService {
 
     public List<DepositDTO> findAllDepositsOfMonthAndYear(Long userId, String month, String year){
         User user = userService.findOne(userId);
+        if(month.length() != 2 || year.length() != 4) {
+            throw new IncorrectURL("Parametros incorretos");
+        }
         LocalDate startOfMonth = LocalDate.parse(year + "-" + month + "-" + "01");
         LocalDate endOfMonth = LocalDate.parse(year + "-" +
                 month + '-' + startOfMonth.lengthOfMonth());
