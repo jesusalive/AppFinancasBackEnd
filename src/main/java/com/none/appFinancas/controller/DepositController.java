@@ -31,11 +31,12 @@ public class DepositController {
         return depositService.findAllFixedDeposits(userId);
     }
 
-    @GetMapping("/deposits/month")
-    public List<DepositDTO> getAllDepositsOfMonthAndYear(@RequestBody DateFormDTO monthAndYear){
-        VerifyLoggedUser.verifyLoggedUser(monthAndYear.getUserId());
-        String[] date = monthAndYear.getMonthAndYear().split("-");
-        return depositService.findAllDepositsOfMonthAndYear(monthAndYear.getUserId(), date[1], date[0]);
+    @GetMapping("/deposits/{userId}/{month}/{year}")
+    public List<DepositDTO> getAllDepositsOfMonthAndYear(@PathVariable Long userId,
+                                                         @PathVariable String month,
+                                                         @PathVariable String year ){
+        VerifyLoggedUser.verifyLoggedUser(userId);
+        return depositService.findAllDepositsOfMonthAndYear(userId, month, year);
     }
 
     @PostMapping("/deposits")
