@@ -13,5 +13,5 @@ public interface DepositRepository extends JpaRepository<Deposit, Long> {
     List<Deposit> findByUser(User user);
     List<Deposit> findByUserAndFixed(User user, Boolean fixed);
     Optional<Deposit> findByIdAndUser(Long id, User user);
-    List<Deposit> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate);
+    List<Deposit> findByUserAndFixedAndDateBetween(User user, Boolean fixed, LocalDate startDate, LocalDate endDate);
 }

@@ -89,6 +89,6 @@ public class DepositService {
                 month + '-' + startOfMonth.lengthOfMonth());
 
         return DepositAdapter.depositListAdapter(
-                depositRepository.findByUserAndDateBetween(user, startOfMonth, endOfMonth));
+                depositRepository.findByUserAndFixedAndDateBetween(user, false, startOfMonth, endOfMonth));
     }
 }
