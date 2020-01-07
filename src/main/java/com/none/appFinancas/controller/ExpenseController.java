@@ -2,6 +2,7 @@ package com.none.appFinancas.controller;
 
 import com.none.appFinancas.adapter.ExpenseAdapter;
 import com.none.appFinancas.dto.DateFormDTO;
+import com.none.appFinancas.dto.DepositDTO;
 import com.none.appFinancas.dto.ExpenseFormDTO;
 import com.none.appFinancas.dto.ExpenseDTO;
 import com.none.appFinancas.entity.Expense;
@@ -34,11 +35,12 @@ public class ExpenseController {
         return outsService.findAllFixedExpenses(userId);
     }
 
-    @GetMapping("/outs/month")
-    public List<ExpenseDTO> getAllExpenseOfMonthAndYear(@RequestBody DateFormDTO monthAndYear){
-        VerifyLoggedUser.verifyLoggedUser(monthAndYear.getUserId());
-        String[] date = monthAndYear.getMonthAndYear().split("-");
-        return outsService.findAllExpenseOfMonthAndYear(monthAndYear.getUserId(), date[1], date[0]);
+    @GetMapping("/outs/{userId}/{month}/{year}")
+    public List<ExpenseDTO> getAllExpensesOfMonthAndYear(@PathVariable Long userId,
+                                                         @PathVariable String month,
+                                                         @PathVariable String year ){
+        VerifyLoggedUser.verifyLoggedUser(userId);
+        return outsService.findAllExpenseOfMonthAndYear(userId, month, year);
     }
 
     @PostMapping("/outs")
