@@ -1,11 +1,9 @@
 package com.none.appFinancas.controller;
 
 import com.none.appFinancas.adapter.ExpenseAdapter;
-import com.none.appFinancas.dto.DateFormDTO;
-import com.none.appFinancas.dto.DepositDTO;
-import com.none.appFinancas.dto.ExpenseFormDTO;
-import com.none.appFinancas.dto.ExpenseDTO;
+import com.none.appFinancas.dto.*;
 import com.none.appFinancas.entity.Expense;
+import com.none.appFinancas.entity.FixedExpense;
 import com.none.appFinancas.security.VerifyLoggedUser;
 import com.none.appFinancas.service.ExpenseService;
 import com.none.appFinancas.service.UserService;
@@ -16,7 +14,6 @@ import java.util.List;
 
 @RestController
 public class ExpenseController {
-
     @Autowired
     private ExpenseService outsService;
 
@@ -29,8 +26,8 @@ public class ExpenseController {
         return outsService.allUserOuts(userId);
     }
 
-    @GetMapping("/outs/fixed/{userId}")
-    public List<ExpenseDTO> getAllFixedOuts(@PathVariable Long userId){
+    @GetMapping("/fixedouts/{userId}")
+    public List<FixedExpenseDTO> getAllFixedOuts(@PathVariable Long userId){
         VerifyLoggedUser.verifyLoggedUser(userId);
         return outsService.findAllFixedExpenses(userId);
     }
@@ -47,24 +44,26 @@ public class ExpenseController {
     public Expense createOut(@RequestBody ExpenseFormDTO out){
         VerifyLoggedUser.verifyLoggedUser(out.getUserId());
         return outsService.createExpense(out.getUserId(), out.getReason(),
-                out.getValue(), out.getDate(), out.getFixed());
+                out.getValue(), out.getDate());
     }
 
-    @PutMapping("/outs/{expenseId}/status")
-    public ExpenseDTO alterStatusOfExpense(@PathVariable Long expenseId, @RequestBody ExpenseFormDTO alterations){
-        VerifyLoggedUser.verifyLoggedUser(alterations.getUserId());
-        return ExpenseAdapter.expenseAdapter(outsService.alterExpenseStatus(expenseId, alterations));
+    @PostMapping("/fixedouts")
+    public FixedExpense createFixedOut(@RequestBody ExpenseFormDTO out){
+        VerifyLoggedUser.verifyLoggedUser(out.getUserId());
+        return outsService.createFixedExpense(out.getUserId(), out.getReason(),
+                out.getValue(), out.getDate());
     }
 
-    @PutMapping("/outs/{expenseId}/fixed")
-    public ExpenseDTO alterFixedExpense(@PathVariable Long expenseId, @RequestBody ExpenseFormDTO alterations){
-        VerifyLoggedUser.verifyLoggedUser(alterations.getUserId());
-        return ExpenseAdapter.expenseAdapter(outsService.alterFixedExpense(expenseId, alterations));
+    @PutMapping("/fixedouts/{expenseId}")
+    public FixedExpense alterFixedExpense(@PathVariable Long expenseId,
+                                          @RequestBody AlterFixedExpenseFormDTO alterations){
+        return outsService.alterFixedExpense(expenseId, alterations);
     }
 
-    @DeleteMapping("/outs/{outId}")
-    public void deleteOut(@PathVariable Long outId){
-        outsService.deleteOut(outId);
+    @DeleteMapping("/fixedouts/{userId}/{expenseId}")
+    public void removeFixedExpense(@PathVariable Long expenseId, @PathVariable Long userId){
+        VerifyLoggedUser.verifyLoggedUser(userId);
+        outsService.removeFixedExpense(userId, expenseId);
     }
 
 }

@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "expenses")
-public class Expense {
+@Table(name = "fixedExpenses")
+public class FixedExpense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "user")
+    @JoinColumn(nullable = false, name = "owner")
     private User user;
 
     @Column(nullable = false)
@@ -24,22 +24,22 @@ public class Expense {
     @Column(nullable = false)
     private LocalDate date;
 
-    public Expense() {
+    @Column(nullable = false)
+    private LocalDate lastPayment;
+
+    @Column(nullable = false)
+    private String status;
+
+    public FixedExpense() {
     }
 
-    public Expense(User user, String reason, Double value, LocalDate date) {
-        if(reason.trim().isEmpty()){
-            throw new RuntimeException("Motivo não pode ser nulo");
-        }
-
-        if(value <= 0.0){
-            throw new RuntimeException("Valor não pode ser nulo(a), igual, ou menor que zero!");
-        }
-
+    public FixedExpense(User user, String reason, Double value, LocalDate date, LocalDate lastPayment) {
         this.user = user;
         this.reason = reason;
         this.value = value;
         this.date = date;
+        this.lastPayment = lastPayment;
+        this.status = "pending";
     }
 
     public Long getId() {
@@ -62,14 +62,19 @@ public class Expense {
         return date;
     }
 
-    @Override
-    public String toString() {
-        return "Expense{" +
-                "id=" + id +
-                ", user=" + user +
-                ", reason='" + reason + '\'' +
-                ", value=" + value +
-                ", date=" + date +
-                '}';
+    public LocalDate getLastPayment() {
+        return lastPayment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setLastPayment(LocalDate lastPayment) {
+        this.lastPayment = lastPayment;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

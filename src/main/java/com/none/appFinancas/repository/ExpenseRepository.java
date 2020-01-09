@@ -10,7 +10,5 @@ import java.util.Optional;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findByUser(User user);
-    Optional<Expense> findByIdAndUser(Long expenseId, User user);
-    List<Expense> findByUserAndFixed(User user, Boolean fixed);
-    List<Expense> findByUserAndFixedAndDateBetween(User user, Boolean fixed, LocalDate startDate, LocalDate endDate);
+    List<Expense> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate);
 }
