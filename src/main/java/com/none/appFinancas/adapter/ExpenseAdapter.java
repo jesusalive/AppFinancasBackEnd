@@ -15,7 +15,7 @@ public class ExpenseAdapter {
             LocalDate date = out.getDate().plusDays(1);
 
             ExpenseDTO outDTO = new ExpenseDTO(out.getId(), out.getReason(),
-                    out.getValue(), date.toString(), out.getStatus());
+                    out.getValue(), date.toString());
 
             dtoList.add(outDTO);
         });
@@ -25,6 +25,6 @@ public class ExpenseAdapter {
 
     public static ExpenseDTO expenseAdapter(Expense oldExpense){
         return new ExpenseDTO(oldExpense.getId(), oldExpense.getReason(), oldExpense.getValue(),
-                oldExpense.getDate().toString(), oldExpense.getStatus());
+                oldExpense.getDate().toString());
     }
 }

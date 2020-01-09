@@ -11,12 +11,11 @@ public class ExpenseDTO {
     private LocalDate date;
     private String status;
 
-    public ExpenseDTO(Long id, String reason, Double value, String date, String status) {
+    public ExpenseDTO(Long id, String reason, Double value, String date) {
         this.id = id;
         this.reason = reason;
         this.value = value;
         this.date = LocalDate.parse(date);
-        this.status = status;
     }
 
     public Long getId() {
